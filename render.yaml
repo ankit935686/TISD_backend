@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tisd-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn FSD.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: PIP_NO_CACHE_DIR
+        value: 1
