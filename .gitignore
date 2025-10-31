@@ -26,15 +26,12 @@ ENV/
 .vscode/
 *.swp
 
-# Migrations
-**/migrations/*.py
-**/migrations/__pycache__/
 
 # VS Code settings
 .vscode/
 
 # macOS
-.DS_Store
+.DS_Storea
 
 # Coverage reports
 htmlcov/
