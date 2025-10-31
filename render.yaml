@@ -7,7 +7,10 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
     startCommand: |
-      python manage.py migrate --noinput && gunicorn FSD.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 120 --max-requests 200 --max-requests-jitter 50
+      python manage.py migrate contenttypes --noinput && python manage.py migrate auth --noinput && python manage.py migrate --noinput && gunicorn FSD.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 120 --max-requests 200 --max-requests-jitter 50
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.11

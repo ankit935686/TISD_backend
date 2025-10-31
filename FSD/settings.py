@@ -124,10 +124,17 @@ if DATABASE_URL:
         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True),
     }
 else:
+    # Use a dedicated writable folder for SQLite on Render
+    SQLITE_DIR = BASE_DIR / 'data'
+    try:
+        os.makedirs(SQLITE_DIR, exist_ok=True)
+    except Exception:
+        # In case of permission issues, fall back to BASE_DIR
+        SQLITE_DIR = BASE_DIR
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': SQLITE_DIR / 'db.sqlite3',
         }
     }
 
